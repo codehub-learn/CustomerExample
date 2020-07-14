@@ -1,21 +1,27 @@
 package gr.codehub.myapp;
 
+import java.util.List;
+
 public class Ui {
     public void doTest() throws Exception {
 
-        CustomerList custList = new CustomerList();
 
-        Customer c1 = new Customer();
-        c1.setLastName("Varsamidis");
+        ImmutableCustomer ic = new ImmutableCustomer(2, "dimitris",
+                true, 100);
 
-       custList.addCustomer(c1);
+        CustomerServiceImpl custList = new CustomerServiceImpl();
 
+        CustomerListIO cio = new CustomerListIO();
 
-        System.out.println(custList.getCustomer(2));
+        List<Customer> cl = cio.readFromFile("customers.txt");
+        custList.addCustomers(cl);
+        List<Customer> cl1 = custList.getCustomers();
+        cl1.clear();
+        System.out.println("the list contains " + cl1.size() + " customers");
+        System.out.println("the list contains " + custList.getCustomers().size() + " customers");
 
+        cio.saveCustomersToFile(custList, "mycustomers.txt");
 
-        System.out.println("The size of the list is " + custList.getSize());
-        System.out.println(custList.getMaxBalance());
 
     }
 

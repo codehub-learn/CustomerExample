@@ -1,0 +1,5 @@
+Dimitris,Dimitriou,3000.0
+Thomas,Varsamidis,1000.0
+Nick,Nickolaou,2000.0
+Dimitris,Iracleous,1000.0
+Elisavet,Nikolaou,2000.0

@@ -16,6 +16,19 @@ public class Customer {
    private boolean isActive;
    private double balance;
 
+   public Customer setFirstName(String firstName){
+      this.firstName = firstName;
+      return this;
+   }
+   public Customer setLastName(String lastName){
+      this.lastName = lastName;
+      return this;
+   }
+   public Customer setBalance(double balance){
+      this.balance = balance;
+      return this;
+   }
+
 
    public double getReducedBalance(){
       if (balance>20000)

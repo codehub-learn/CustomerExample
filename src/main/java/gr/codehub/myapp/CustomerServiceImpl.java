@@ -1,22 +1,35 @@
 package gr.codehub.myapp;
 
+
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CustomerList {
+public class CustomerServiceImpl implements CustomerService {
     private List<Customer> customers;
 
+    public List<Customer> getCustomers(){
+        return new ArrayList<>(customers);
+    }
 
-
-    public CustomerList() {
+    public CustomerServiceImpl() {
         customers = new ArrayList<>();
     }
 
     //CRUD     operations on a certain element
     //create read update delete
 
+    @Override
+    public int countCustomers() {
+        return 0;
+    }
+
     public void addCustomer(Customer cust) {
         customers.add(cust);
+    }
+
+    @Override
+    public double getSumOfBalance() {
+        return 0;
     }
 
     public Customer getCustomer(int index) {
@@ -69,6 +82,8 @@ public class CustomerList {
                 .collect(Collectors.toList());
     }
 
+
+
     public List<Double> getListOfReducedBalances() {
         return customers.stream()
                 .mapToDouble(Customer::getReducedBalance)
@@ -76,6 +91,8 @@ public class CustomerList {
                 .collect(Collectors.toList());
 
     }
+
+
 
     public void addDebitToAllCustomers(double amount) {
         customers
