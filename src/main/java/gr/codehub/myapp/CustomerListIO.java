@@ -3,52 +3,39 @@ package gr.codehub.myapp;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class CustomerListIO {
 
     public List<Customer> readFromExcel(String filename) throws IOException, InvalidFormatException {
 
-         // Creating a Workbook from an Excel file (.xls or .xlsx)
-         Workbook workbook = WorkbookFactory.create(new File(filename));
+        List<Customer> customers = new ArrayList<>();
+        File workbookFile = new File(filename);
+        FileInputStream file = new FileInputStream(workbookFile);
+        Workbook workbook = WorkbookFactory.create(file);
+        Sheet sheet = workbook.getSheetAt(0);
+        DataFormatter dataFormatter = new DataFormatter();
 
+        boolean firstTime = true;
 
-         // Getting the Sheet at index zero
-         Sheet sheet = workbook.getSheetAt(0);
-
-         // Create a DataFormatter to format and get each cell's value as String
-         DataFormatter dataFormatter = new DataFormatter();
-
-
-
-         //   Or you can use a for-each loop to iterate over the rows and columns
-         System.out.println("\n\nIterating over Rows and Columns using for-each loop\n");
-         for (Row row: sheet) {
-             for(Cell cell: row) {
-                 String cellValue = dataFormatter.formatCellValue(cell);
-                 System.out.print(cellValue + "\t");
-             }
-             System.out.println();
+        for (Row row : sheet) {
+            if (firstTime) {
+                firstTime = false;
+                continue;
+            }
+            customers.add(new Customer()
+                    .setFirstName(row.getCell(0).getStringCellValue())
+                    .setLastName(row.getCell(1).getStringCellValue())
+                    .setBalance(row.getCell(2).getNumericCellValue())
+                    .setDob(row.getCell(3).getDateCellValue()));
          }
 
+        // Closing the workbook
+        workbook.close();
 
-
-         // Closing the workbook
-         workbook.close();
-
-         return null;
-     }
-
-
-
-
+        return customers;
+    }
 
 
     public void saveCustomersToFile(CustomerServiceImpl cl, String filename)

@@ -29,6 +29,12 @@ public class Customer {
       return this;
    }
 
+   public Customer setDob(Date Dob){
+      this.Dob = Dob;
+      return this;
+   }
+
+
 
    public double getReducedBalance(){
       if (balance>20000)
