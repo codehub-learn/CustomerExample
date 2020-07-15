@@ -3,7 +3,21 @@ package gr.codehub.myapp;
 import java.util.List;
 
 public class Ui {
-    public void doTest() throws Exception {
+
+    public void testCustomerService(){
+
+        CustomerService cs = new RetailCustomerServiceImpl();
+        Customer c = new Customer();
+        cs.addCustomer(c);
+        System.out.println(cs.countCustomers());
+
+
+    }
+
+
+
+
+    public void doTestOld() throws Exception {
 
 
         ImmutableCustomer ic = new ImmutableCustomer(2, "dimitris",

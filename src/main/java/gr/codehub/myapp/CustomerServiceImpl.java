@@ -20,17 +20,23 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public int countCustomers() {
-        return 0;
+
+        return customers.size();
     }
 
+    @Override
     public void addCustomer(Customer cust) {
         customers.add(cust);
     }
 
     @Override
     public double getSumOfBalance() {
-        return 0;
+        return
+                customers.stream()
+                        .mapToDouble(Customer::getReducedBalance)
+                        .sum();
     }
+
 
     public Customer getCustomer(int index) {
         return customers.get(index);

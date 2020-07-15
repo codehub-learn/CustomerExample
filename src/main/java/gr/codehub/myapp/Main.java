@@ -15,7 +15,7 @@ public class Main {
       Ui ui = new Ui();
 
                  try {
-                     ui.doTest();
+                     ui.testCustomerService();
                  } catch (Exception e) {
                      System.out.println(e);
                  }
