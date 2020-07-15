@@ -1,13 +1,55 @@
 package gr.codehub.myapp;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 public class CustomerListIO {
+
+    public List<Customer> readFromExcel(String filename) throws IOException, InvalidFormatException {
+
+         // Creating a Workbook from an Excel file (.xls or .xlsx)
+         Workbook workbook = WorkbookFactory.create(new File(filename));
+
+
+         // Getting the Sheet at index zero
+         Sheet sheet = workbook.getSheetAt(0);
+
+         // Create a DataFormatter to format and get each cell's value as String
+         DataFormatter dataFormatter = new DataFormatter();
+
+
+
+         //   Or you can use a for-each loop to iterate over the rows and columns
+         System.out.println("\n\nIterating over Rows and Columns using for-each loop\n");
+         for (Row row: sheet) {
+             for(Cell cell: row) {
+                 String cellValue = dataFormatter.formatCellValue(cell);
+                 System.out.print(cellValue + "\t");
+             }
+             System.out.println();
+         }
+
+
+
+         // Closing the workbook
+         workbook.close();
+
+         return null;
+     }
+
+
+
+
+
 
     public void saveCustomersToFile(CustomerServiceImpl cl, String filename)
             throws FileNotFoundException, BadFileNameException {
